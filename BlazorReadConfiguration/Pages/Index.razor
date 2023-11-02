@@ -1,9 +1,36 @@
 ﻿@page "/"
+@inject IConfiguration configuration
 
 <PageTitle>Index</PageTitle>
 
 <h1>Hello, world!</h1>
 
+<br />
+<br />
+<br />
+
+<h3>User details</h3>
+<ul>
+    <li><strong>Id:</strong> @user.Id</li>
+    <li><strong>Username:</strong> @user.Username</li>
+    <li><strong>Email:</strong> @user.Mail</li>
+    <li><strong>Profile:</strong> @user.Profile</li>
+</ul>
+
+<br />
+<br />
+<br />
+
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+@code {
+    private User user = new();
+
+    protected override void OnInitialized()
+    {
+        user = configuration.GetSection("User").Get<User>()!;
+    }
+}
+
